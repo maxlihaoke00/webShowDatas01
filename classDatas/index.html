@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教学演示——数据课堂</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.4.2/dist/browser/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0-beta/dist/index.min.js"></script>
+
+    
+</head>
+<body>
+    <div class="container">
+        
+
+        <!-- 前一张 -->
+        <div class="arrow l" onclick="prev()">
+            <img src="img/l.png" alt="">
+        </div>
+        <!--第一页 花朵页面 hello! become! nice! -->
+        <div class="slide slide-1">
+            <div id="button1" class="button0" style="border: none; width: 100px; height: 100px; position: absolute; top: 0;left: 0; z-index: 100;">
+            </div>
+            <div id="button6" class="button0" style="border: none; width: 100px; height: 100px; position: absolute; bottom: 0;left: 0; z-index: 100;">
+            </div>
+            <iframe class="resp-iframe"  width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=3c20cc926cbda569d0e946d257c3233f"></iframe>
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=3c20cc926cbda569d0e946d257c3233f" width="1920" height="1083" scrolling="no" frameborder="0" align=""></iframe> -->
+        </div>
+        <!-- 第二页 congratulations-->
+        <div class="slide slide-2">
+            <div id="button11" class="button0"  style="border: none; width: 100px; height: 100px; position: absolute; top: 0;left: 0; z-index: 100;">
+            </div>
+            <iframe class="resp-iframe" width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=d9e9a4d8579803142574e85f578f6edd"></iframe>
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=d9e9a4d8579803142574e85f578f6edd" width="1920" height="1080" scrolling="no" frameborder="0" align=""></iframe>             -->
+        </div>
+
+        <!-- 第三页  实操动态 无交互-->
+        <div class="slide slide-3">
+            <iframe class="resp-iframe" width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=a02b0c2072552ffc5161134110fcdd6b"></iframe> 
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=a02b0c2072552ffc5161134110fcdd6b" width="1920" height="1080" scrolling="no" frameborder="0" align=""></iframe> -->
+        </div>
+
+        <!-- 第四页 yougood!  -->
+        <div class="slide slide-4">
+            <div id="button2" class="button0" style="border: none; width: 100px; height: 100px; position: absolute; top: 0;left: 0; z-index: 100;">
+            </div>
+            <iframe class="resp-iframe" width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=c2990da101c38eb73ad86f80dd9d7726"></iframe> 
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=c2990da101c38eb73ad86f80dd9d7726" width="1920" height="1080" scrolling="no" frameborder="0" align=""></iframe> -->
+        </div>
+
+        <!-- 第五页 好努力啊！-->
+        <div class="slide slide-5">
+            <div id="button4" class="button0" style="border: none; width: 100px; height: 100px; position: absolute; top: 0;left: 0; z-index: 100;">
+            </div>
+            <iframe class="resp-iframe" width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=0b0fb74b95a2d313c9bafe785b98666b"></iframe> 
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=0b0fb74b95a2d313c9bafe785b98666b" width="1920" height="1080" scrolling="no" frameborder="0" align=""></iframe> -->
+        </div>
+
+        <!-- 第六页 两个错误-->
+        <div class="slide slide-6">
+            <div id="button3"  class="button0" style="border: none; width: 100px; height: 100px; position: absolute; top: 0;left: 0; z-index: 100;">
+            </div>
+            <div id="button5" class="button0" style="border: none; width: 100px; height: 100px; position: absolute; bottom: 0;left: 0; z-index: 100;">
+            </div>
+            <iframe class="resp-iframe" width="100%" height="100%" src="https://dycharts.com/xshow/index.html?id=af3a956cf7d83fe3193e86545995423f"></iframe> 
+            <!-- <iframe src="https://dycharts.com/xshow/index.html?id=af3a956cf7d83fe3193e86545995423f" width="1920" height="1080" scrolling="no" frameborder="0" align=""></iframe> -->
+        </div>
+
+        <!-- 后一张 -->
+        <div class="arrow r" onclick="next()">
+            <img src="img/r.png" alt="">
+        </div>
+
+        
+    </div>
+
+    <div style="position: absolute; bottom: 20px; right: 20px;">
+        <canvas id="scene">
+        </canvas>
+        <script src="js/index.js"></script>
+    </div> 
+    
+    <script>
+
+        let slide = document.querySelectorAll('.slide');
+        var current=0;
+        
+
+        function getCurrent(){
+            var loc = location.href;           
+            var n1=loc.indexOf("?");
+            var paraments=loc.split("?");
+            // alert("paraments"+paraments[1]);
+            if(paraments[1]!=null){
+            current=paraments[1];
+            } 
+            // alert("current"+current);   
+        }
+
+        
+
+        function cls(){
+            for(let i = 0; i<slide.length;i++){
+                slide[i].style.display = 'none';
+            }
+        }
+
+        function next(){
+
+            cls();
+                       
+            if(current == slide.length-1) current = -1
+                current++;
+
+                slide[current].style.display = 'block'; 
+                slide[current].style.opacity = 0.4; 
+
+                var x = 0.4;
+                var intX = setInterval(function(){
+                    x+=0.1;
+                    slide[current].style.opacity = x;
+                    if(x >=1){
+                        clearInterval(intX);
+                        x = 0.4;
+                    }
+                },100)
+            location.href = "./index.html?"+current; 
+        }
+
+        function prev(){
+            cls();
+            if(current == 0) current = slide.length
+            current--;
+
+            slide[current].style.display = 'block'; 
+            slide[current].style.opacity = 0.4; 
+
+            var x = 0.4;
+            var intX = setInterval(function(){
+                x+=0.1;
+                slide[current].style.opacity = x;
+                if(x >=1){
+                    clearInterval(intX);
+                    x = 0.4;
+                }
+            },100)
+
+            location.href = "./index.html?"+current; 
+        }
+
+
+        function start(){
+            cls();
+            getCurrent();
+            slide[current].style.display = 'block'; 
+        }
+
+        start();
+
+    </script>
+
+</body>
+</html>
